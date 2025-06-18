@@ -11,8 +11,8 @@ API_SECRET_KEY = os.getenv("API_SECRET_KEY")
 app = FastAPI()
 
 # ✅ Use small model for Render (under 512 MB)
-tokenizer = AutoTokenizer.from_pretrained("distilgpt2")
-model = AutoModelForCausalLM.from_pretrained("distilgpt2").to("cpu")
+tokenizer = AutoTokenizer.from_pretrained("sshleifer/tiny-gpt2")
+model = AutoModelForCausalLM.from_pretrained("sshleifer/tiny-gpt2").to("cpu")
 model.eval()
 
 # Load API keys from keys.json
