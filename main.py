@@ -1,10 +1,7 @@
-# main.py
 from fastapi import FastAPI, Request, HTTPException
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from dotenv import load_dotenv
-import torch
-import os
-import json
+import torch, os, json
 
 # Load environment variables
 load_dotenv()
@@ -13,12 +10,12 @@ API_SECRET_KEY = os.getenv("API_SECRET_KEY")
 # Initialize FastAPI app
 app = FastAPI()
 
-# Load tokenizer and model once
-tokenizer = AutoTokenizer.from_pretrained("distilgpt2")
-model = AutoModelForCausalLM.from_pretrained("distilgpt2").to("cpu")
-model.eval()  # optional but recommended for inference
+# ✅ Use small model for Render (under 512 MB)
+tokenizer = AutoTokenizer.from_pretrained("sshleifer/tiny-gpt2")
+model = AutoModelForCausalLM.from_pretrained("sshleifer/tiny-gpt2").to("cpu")
+model.eval()
 
-# Load API keys from JSON file
+# Load API keys from keys.json
 with open("keys.json", "r") as f:
     VALID_KEYS = json.load(f)
 
@@ -44,4 +41,3 @@ async def generate(request: Request):
     result = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     return {"response": result}
-
