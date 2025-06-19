@@ -4,7 +4,7 @@ import json
 
 app = FastAPI()
 
-LLM_API_URL = "https://tinygpt2-api.onrender.com/generate/"
+LLM_API_URL = "https://llm-model-2-p5no.onrender.com//generate/"
 
 # Load API keys from local file
 with open("keys.json", "r") as f:
